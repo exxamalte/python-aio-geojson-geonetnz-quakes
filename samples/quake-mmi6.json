@@ -1,0 +1,24 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          178.2567291,
+          -38.07928467
+        ]
+      },
+      "properties": {
+        "publicID": "2019p159004",
+        "time": "2019-02-28T19:55:40.786Z",
+        "depth": 0,
+        "magnitude": 5.020958811,
+        "mmi": 6,
+        "locality": "5 km north-west of Tokomaru Bay",
+        "quality": "deleted"
+      }
+    }
+  ]
+}
