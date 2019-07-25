@@ -10,12 +10,12 @@ class GeonetnzQuakesFeedManager(FeedManagerBase):
 
     def __init__(self, websession: ClientSession, generate_callback,
                  update_callback, remove_callback,
-                 coordinates, mmi=-1, filter_radius=None,
+                 home_coordinates, mmi=-1, filter_radius=None,
                  filter_minimum_magnitude=None):
-        """Initialize the Qld Bushfire Alert Feed Manager."""
+        """Initialize the GeoNet NZ Quakes Feed Manager."""
         feed = GeonetnzQuakesFeed(
             websession,
-            coordinates,
+            home_coordinates,
             mmi=mmi,
             filter_radius=filter_radius,
             filter_minimum_magnitude=filter_minimum_magnitude)

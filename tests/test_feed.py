@@ -1,4 +1,4 @@
-"""Test for the geonet nz quakes geojson feed."""
+"""Test for the GeoNet NZ Quakes GeoJSON feed."""
 import datetime
 import re
 
