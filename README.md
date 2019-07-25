@@ -29,11 +29,10 @@ Status Codes
 
 **Parameters**
 
-| Parameter        | Description                               |
-|------------------|-------------------------------------------|
-| home_coordinates | Coordinates (tuple of latitude/longitude) |
-| mmi              | Request quakes that may have caused shaking greater than or equal to the [MMI](https://en.wikipedia.org/wiki/Modified_Mercalli_intensity_scale) value in the New Zealand region. Allowable values are -1..8 inclusive. Default: -1 is used for quakes that are too small to calculate a stable MMI value for. |
-
+| Parameter          | Description                               |
+|--------------------|-------------------------------------------|
+| `home_coordinates` | Coordinates (tuple of latitude/longitude) |
+| `mmi`              | Request quakes that may have caused shaking greater than or equal to the [MMI](https://en.wikipedia.org/wiki/Modified_Mercalli_intensity_scale) value in the New Zealand region. Allowable values are -1..8 inclusive. Default: -1 is used for quakes that are too small to calculate a stable MMI value for. |
 
 **Supported Filters**
 
