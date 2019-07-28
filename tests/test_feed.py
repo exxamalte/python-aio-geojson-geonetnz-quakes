@@ -19,10 +19,11 @@ async def test_update_ok(aresponses, event_loop):
     home_coordinates = (-41.2, 174.7)
     aresponses.add(
         'api.geonet.org.nz',
-        re.compile(r'/quake.*'),
+        '/quake?MMI=5',
         'get',
         aresponses.Response(text=load_fixture('quakes-1.json'),
                             status=200),
+        match_querystring=True,
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as websession:
@@ -64,10 +65,11 @@ async def test_update_ok_with_filter(aresponses, event_loop):
     home_coordinates = (-41.2, 174.7)
     aresponses.add(
         "api.geonet.org.nz",
-        re.compile(r"/quake.*"),
+        '/quake?MMI=5',
         "get",
         aresponses.Response(text=load_fixture('quakes-1.json'),
                             status=200),
+        match_querystring=True,
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as websession:
@@ -97,10 +99,11 @@ async def test_empty_feed(aresponses, event_loop):
     home_coordinates = (-41.2, 174.7)
     aresponses.add(
         'api.geonet.org.nz',
-        re.compile(r'/quake.*'),
+        '/quake?MMI=5',
         'get',
         aresponses.Response(text=load_fixture('quakes-2.json'),
                             status=200),
+        match_querystring=True,
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as websession:
