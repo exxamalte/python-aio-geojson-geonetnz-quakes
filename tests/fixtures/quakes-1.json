@@ -38,6 +38,24 @@
         "locality": "Locality 2",
         "quality": "best"
       }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          178.2912567,
+          -38.46707928
+        ]
+      },
+      "properties": {
+        "publicID": "2019p333333",
+        "depth": 0,
+        "magnitude": 5.981102095,
+        "mmi": 5,
+        "locality": "Locality 3",
+        "quality": "best"
+      }
     }
   ]
 }

@@ -40,6 +40,7 @@ Status Codes
 |-------------------|----------------------------|-------------|
 | Radius            | `filter_radius`            | Radius in kilometers around the home coordinates in which events from feed are included. |
 | Minimum Magnitude | `filter_minimum_magnitude` | Minimum magnitude as float value. Only events with a magnitude equal or above this value are included. |
+| Time              | `filter_time`              | Time interval; only events with a reported origin time that falls within now and this past time interval are included. |
 
 **Example**
 ```python

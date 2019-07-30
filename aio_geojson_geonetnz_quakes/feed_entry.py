@@ -1,11 +1,15 @@
 """GeoNet NZ Quakes feed entry."""
+import logging
 from datetime import datetime
 from typing import Optional
 
+import pytz
 from aio_geojson_client.feed_entry import FeedEntry
 
 from .consts import ATTR_DEPTH, ATTR_LOCALITY, ATTR_MAGNITUDE, ATTR_MMI, \
     ATTR_PUBLICID, ATTR_QUALITY, ATTR_TIME, ATTRIBUTION
+
+_LOGGER = logging.getLogger(__name__)
 
 
 class GeonetnzQuakesFeedEntry(FeedEntry):
@@ -59,4 +63,10 @@ class GeonetnzQuakesFeedEntry(FeedEntry):
     def time(self) -> Optional[datetime]:
         """Return the time of this entry."""
         time_str = self._search_in_properties(ATTR_TIME)
-        return datetime.strptime(time_str, "%Y-%m-%dT%H:%M:%S.%fZ")
+        if time_str:
+            # 'Z' means UTC timezone.
+            time = pytz.utc.localize(
+                datetime.strptime(time_str, "%Y-%m-%dT%H:%M:%S.%fZ"))
+            _LOGGER.debug("Time parsed: %s", time)
+            return time
+        return None
