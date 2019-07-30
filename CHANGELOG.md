@@ -1,5 +1,9 @@
 # Changes
 
+## 0.4 (30/07/2019)
+* Parsing feed entry time as timezone aware.
+* Support for filtering entries by time.
+
 ## 0.3 (29/07/2019)
 * Bumped version of upstream GeoJSON library.
 
