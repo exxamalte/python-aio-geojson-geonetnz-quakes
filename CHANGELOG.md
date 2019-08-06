@@ -1,5 +1,9 @@
 # Changes
 
+## 0.5 (06/08/2019)
+* Fixed computation of "now" for filtering.
+* Removed debug statements.
+
 ## 0.4 (30/07/2019)
 * Parsing feed entry time as timezone aware.
 * Support for filtering entries by time.
