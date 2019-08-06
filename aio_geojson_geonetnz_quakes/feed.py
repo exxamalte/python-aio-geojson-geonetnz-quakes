@@ -57,8 +57,6 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
             # Return only entries that have a time value, and that value is
             # between now and now-time interval.
             now = self._now()
-            _LOGGER.warning("Now = %s", now)
-            _LOGGER.warning("Earlier = %s", (now - self._filter_time))
             filtered_entries = list(filter(
                 lambda entry:
                 entry.time and (now - self._filter_time <= entry.time <= now),
