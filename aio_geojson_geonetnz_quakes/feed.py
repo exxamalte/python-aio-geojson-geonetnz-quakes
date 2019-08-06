@@ -65,7 +65,7 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
 
     def _now(self):
         """Return now with timezone."""
-        return pytz.utc.localize(datetime.now())
+        return datetime.now(pytz.utc)
 
     def _extract_last_timestamp(self, feed_entries):
         """Determine latest (newest) entry from the filtered feed."""

@@ -121,6 +121,12 @@ async def test_update_ok_with_time_filter(aresponses, event_loop):
 
         feed = GeonetnzQuakesFeed(websession, home_coordinates, mmi=5,
                                   filter_time=datetime.timedelta(hours=1))
+        # Test if "now" is computed correctly, before patchinng it.
+        before_now_call = datetime.datetime.now(pytz.utc)
+        computed_now = feed._now()
+        after_now_call = datetime.datetime.now(pytz.utc)
+        assert before_now_call <= computed_now <= after_now_call
+
         with mock.patch('aio_geojson_geonetnz_quakes.feed.'
                         'GeonetnzQuakesFeed._now') as mock_now:
             mock_now.return_value = fixed_now
