@@ -1,5 +1,9 @@
 # Changes
 
+## 0.6 (10/08/2019)
+* Bumped version of upstream GeoJSON library.
+* Added ability for status update callback.
+
 ## 0.5 (06/08/2019)
 * Fixed computation of "now" for filtering.
 * Removed debug statements.
