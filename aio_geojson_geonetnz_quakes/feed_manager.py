@@ -12,7 +12,7 @@ class GeonetnzQuakesFeedManager(FeedManagerBase):
                  update_callback, remove_callback,
                  home_coordinates, mmi=-1, filter_radius=None,
                  filter_minimum_magnitude=None,
-                 filter_time=None):
+                 filter_time=None, status_callback=None):
         """Initialize the GeoNet NZ Quakes Feed Manager."""
         feed = GeonetnzQuakesFeed(
             websession,
@@ -22,4 +22,4 @@ class GeonetnzQuakesFeedManager(FeedManagerBase):
             filter_minimum_magnitude=filter_minimum_magnitude,
             filter_time=filter_time)
         super().__init__(feed, generate_callback, update_callback,
-                         remove_callback)
+                         remove_callback, status_callback)
