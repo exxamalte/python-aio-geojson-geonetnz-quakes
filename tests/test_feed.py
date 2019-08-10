@@ -42,7 +42,8 @@ async def test_update_ok(aresponses, event_loop):
         assert feed_entry is not None
         assert feed_entry.title == "Locality 1"
         assert feed_entry.external_id == "2019p111111"
-        assert feed_entry.coordinates == (-38.07928467, 178.2567291)
+        assert feed_entry.coordinates[0] == pytest.approx(-38.07928467)
+        assert feed_entry.coordinates[1] == pytest.approx(178.2567291)
         assert round(abs(feed_entry.distance_to_home - 461.6), 1) == 0
         assert repr(feed_entry) == "<GeonetnzQuakesFeedEntry(id=2019p111111)>"
         assert feed_entry.attribution == ATTRIBUTION
@@ -94,7 +95,8 @@ async def test_update_ok_with_minimum_magnitude_filter(aresponses, event_loop):
         assert feed_entry is not None
         assert feed_entry.title == "Locality 2"
         assert feed_entry.external_id == "2019p222222"
-        assert feed_entry.coordinates == (-38.46707928, 178.2912567)
+        assert feed_entry.coordinates[0] == pytest.approx(-38.467079)
+        assert feed_entry.coordinates[1] == pytest.approx(178.291257)
         assert round(abs(feed_entry.distance_to_home - 431.6), 1) == 0
         assert repr(feed_entry) == "<GeonetnzQuakesFeedEntry(id=2019p222222)>"
 
