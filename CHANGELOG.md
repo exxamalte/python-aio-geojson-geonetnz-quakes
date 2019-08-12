@@ -1,5 +1,9 @@
 # Changes
 
+## 0.7 (12/08/2019)
+* Bumped version of upstream GeoJSON library.
+* Added total number of managed entries to status callback info.
+
 ## 0.6 (10/08/2019)
 * Bumped version of upstream GeoJSON library.
 * Added ability for status update callback.
