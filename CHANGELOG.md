@@ -1,5 +1,10 @@
 # Changes
 
+## 0.8 (13/08/2019)
+* Bumped version of upstream GeoJSON library.
+* Reset last timestamp when update fails.
+* Add request timeout of 10 seconds.
+
 ## 0.7 (12/08/2019)
 * Bumped version of upstream GeoJSON library.
 * Added total number of managed entries to status callback info.
