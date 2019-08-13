@@ -1,6 +1,7 @@
 """GeoNet NZ Quakes feed."""
 import logging
 from datetime import datetime
+from typing import Optional
 
 import pytz
 from aio_geojson_client.exceptions import GeoJsonException
@@ -74,4 +75,8 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
                 None, [entry.time for entry in feed_entries]),
                 reverse=True)
             return dates[0]
+        return None
+
+    def _extract_from_feed(self, feed) -> Optional:
+        """Extract global metadata from feed."""
         return None
