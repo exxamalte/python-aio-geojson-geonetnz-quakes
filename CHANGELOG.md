@@ -1,5 +1,8 @@
 # Changes
 
+## 0.9 (14/08/2019)
+* Bumped version of upstream GeoJSON library.
+
 ## 0.8 (13/08/2019)
 * Bumped version of upstream GeoJSON library.
 * Reset last timestamp when update fails.
