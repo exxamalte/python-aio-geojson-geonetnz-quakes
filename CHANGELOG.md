@@ -1,5 +1,8 @@
 # Changes
 
+## 0.10 (24/09/2019)
+* Bumped version of upstream GeoJSON library.
+
 ## 0.9 (14/08/2019)
 * Bumped version of upstream GeoJSON library.
 
