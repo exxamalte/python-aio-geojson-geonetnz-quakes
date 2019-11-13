@@ -5,7 +5,7 @@
 [![PyPi](https://img.shields.io/pypi/v/aio-geojson-geonetnz-quakes.svg)](https://pypi.python.org/pypi/aio-geojson-geonetnz-quakes)
 [![Version](https://img.shields.io/pypi/pyversions/aio-geojson-geonetnz-quakes.svg)](https://pypi.python.org/pypi/aio-geojson-geonetnz-quakes)
 
-This library for convenient async access to 
+This library provides convenient async access to the
 [GeoNet NZ Quakes](https://api.geonet.org.nz/#quakes) feed.
  
 
