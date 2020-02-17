@@ -1,5 +1,6 @@
 """Test for the GeoNet NZ Quakes GeoJSON feed."""
 import datetime
+from unittest.mock import ANY
 
 import aiohttp
 import pytest
@@ -178,4 +179,4 @@ async def test_empty_feed(aresponses, event_loop):
 async def test_invalid_mmi():
     """Test with invalid parameter."""
     with pytest.raises(GeoJsonException):
-        GeonetnzQuakesFeed(None, None, mmi=10)
+        GeonetnzQuakesFeed(ANY, ANY, mmi=10)
