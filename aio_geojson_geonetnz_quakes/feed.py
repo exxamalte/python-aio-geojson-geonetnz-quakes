@@ -1,14 +1,16 @@
 """GeoNet NZ Quakes feed."""
 import logging
 from datetime import datetime
-from typing import Optional
+from typing import Dict, List, Optional, Tuple
 
 import pytz
 from aio_geojson_client.exceptions import GeoJsonException
 from aio_geojson_client.feed import GeoJsonFeed
 from aiohttp import ClientSession
+from geojson import FeatureCollection
 
 from aio_geojson_geonetnz_quakes.consts import URL_TEMPLATE, VALID_MMI
+
 from .feed_entry import GeonetnzQuakesFeedEntry
 
 _LOGGER = logging.getLogger(__name__)
@@ -17,9 +19,13 @@ _LOGGER = logging.getLogger(__name__)
 class GeonetnzQuakesFeed(GeoJsonFeed):
     """GeoNet NZ Quakes feed."""
 
-    def __init__(self, websession: ClientSession, home_coordinates,
-                 mmi=-1, filter_radius=None, filter_minimum_magnitude=None,
-                 filter_time=None):
+    def __init__(self,
+                 websession: ClientSession,
+                 home_coordinates: Tuple[float, float],
+                 mmi: int = -1,
+                 filter_radius: float = None,
+                 filter_minimum_magnitude: float = None,
+                 filter_time: datetime = None):
         """Initialise this service."""
         if mmi in VALID_MMI:
             url = URL_TEMPLATE.format(mmi)
@@ -64,11 +70,13 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
                 filtered_entries))
         return filtered_entries
 
-    def _now(self):
+    def _now(self) -> datetime:
         """Return now with timezone."""
         return datetime.now(pytz.utc)
 
-    def _extract_last_timestamp(self, feed_entries):
+    def _extract_last_timestamp(
+            self,
+            feed_entries: List[GeonetnzQuakesFeedEntry]) -> Optional[datetime]:
         """Determine latest (newest) entry from the filtered feed."""
         if feed_entries:
             dates = sorted(filter(
@@ -77,6 +85,6 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
             return dates[0]
         return None
 
-    def _extract_from_feed(self, feed) -> Optional:
+    def _extract_from_feed(self, feed: FeatureCollection) -> Optional[Dict]:
         """Extract global metadata from feed."""
         return None

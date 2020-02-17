@@ -2,9 +2,9 @@
 import datetime
 
 import aiohttp
-import pytest
 import pytz
 
+import pytest
 from aio_geojson_geonetnz_quakes.feed_manager import GeonetnzQuakesFeedManager
 from tests.utils import load_fixture
 

@@ -1,5 +1,9 @@
 """Feed Manager for GeoNet NZ Quakes feed."""
+from datetime import datetime
+from typing import Awaitable, Callable, Tuple
+
 from aio_geojson_client.feed_manager import FeedManagerBase
+from aio_geojson_client.status_update import StatusUpdate
 from aiohttp import ClientSession
 
 from .feed import GeonetnzQuakesFeed
@@ -8,11 +12,18 @@ from .feed import GeonetnzQuakesFeed
 class GeonetnzQuakesFeedManager(FeedManagerBase):
     """Feed Manager for GeoNet NZ Quakes feed."""
 
-    def __init__(self, websession: ClientSession, generate_callback,
-                 update_callback, remove_callback,
-                 home_coordinates, mmi=-1, filter_radius=None,
-                 filter_minimum_magnitude=None,
-                 filter_time=None, status_callback=None):
+    def __init__(self,
+                 websession: ClientSession,
+                 generate_callback: Callable[[str], Awaitable[None]],
+                 update_callback: Callable[[str], Awaitable[None]],
+                 remove_callback: Callable[[str], Awaitable[None]],
+                 home_coordinates: Tuple[float, float],
+                 mmi: int = -1,
+                 filter_radius: float = None,
+                 filter_minimum_magnitude: float = None,
+                 filter_time: datetime = None,
+                 status_callback: Callable[[StatusUpdate],
+                                           Awaitable[None]] = None):
         """Initialize the GeoNet NZ Quakes Feed Manager."""
         feed = GeonetnzQuakesFeed(
             websession,
