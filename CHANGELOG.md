@@ -1,5 +1,9 @@
 # Changes
 
+## 0.12 (17/02/2020)
+* Bumped version of upstream GeoJSON library.
+* Internal code improvements.
+
 ## 0.11 (06/11/2019)
 * Python 3.8 compatibility.
 
