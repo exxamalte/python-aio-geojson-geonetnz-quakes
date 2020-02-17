@@ -1,15 +1,14 @@
 """Test for the GeoNet NZ Quakes GeoJSON feed."""
 import datetime
+from unittest import mock
 from unittest.mock import ANY
 
 import aiohttp
-import pytest
-from unittest import mock
-
 import pytz
 from aio_geojson_client.consts import UPDATE_OK
 from aio_geojson_client.exceptions import GeoJsonException
 
+import pytest
 from aio_geojson_geonetnz_quakes.consts import ATTRIBUTION
 from aio_geojson_geonetnz_quakes.feed import GeonetnzQuakesFeed
 from tests.utils import load_fixture

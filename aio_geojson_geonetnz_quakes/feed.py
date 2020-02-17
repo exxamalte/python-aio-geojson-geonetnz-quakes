@@ -1,7 +1,7 @@
 """GeoNet NZ Quakes feed."""
 import logging
 from datetime import datetime
-from typing import Optional, Tuple, List, Dict
+from typing import Dict, List, Optional, Tuple
 
 import pytz
 from aio_geojson_client.exceptions import GeoJsonException
@@ -10,6 +10,7 @@ from aiohttp import ClientSession
 from geojson import FeatureCollection
 
 from aio_geojson_geonetnz_quakes.consts import URL_TEMPLATE, VALID_MMI
+
 from .feed_entry import GeonetnzQuakesFeedEntry
 
 _LOGGER = logging.getLogger(__name__)

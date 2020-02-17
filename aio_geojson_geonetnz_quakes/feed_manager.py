@@ -1,6 +1,6 @@
 """Feed Manager for GeoNet NZ Quakes feed."""
 from datetime import datetime
-from typing import Tuple, Callable, Awaitable
+from typing import Awaitable, Callable, Tuple
 
 from aio_geojson_client.feed_manager import FeedManagerBase
 from aio_geojson_client.status_update import StatusUpdate
