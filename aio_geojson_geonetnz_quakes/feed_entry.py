@@ -1,10 +1,11 @@
 """GeoNet NZ Quakes feed entry."""
 import logging
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Tuple
 
 import pytz
 from aio_geojson_client.feed_entry import FeedEntry
+from geojson import Feature
 
 from .consts import ATTR_DEPTH, ATTR_LOCALITY, ATTR_MAGNITUDE, ATTR_MMI, \
     ATTR_PUBLICID, ATTR_QUALITY, ATTR_TIME, ATTRIBUTION
@@ -15,7 +16,7 @@ _LOGGER = logging.getLogger(__name__)
 class GeonetnzQuakesFeedEntry(FeedEntry):
     """GeoNet NZ Quakes feed entry."""
 
-    def __init__(self, home_coordinates, feature):
+    def __init__(self, home_coordinates: Tuple[float, float], feature: Feature):
         """Initialise this service."""
         super().__init__(home_coordinates, feature)
 
