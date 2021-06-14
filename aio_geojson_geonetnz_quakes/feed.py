@@ -19,31 +19,37 @@ _LOGGER = logging.getLogger(__name__)
 class GeonetnzQuakesFeed(GeoJsonFeed):
     """GeoNet NZ Quakes feed."""
 
-    def __init__(self,
-                 websession: ClientSession,
-                 home_coordinates: Tuple[float, float],
-                 mmi: int = -1,
-                 filter_radius: float = None,
-                 filter_minimum_magnitude: float = None,
-                 filter_time: datetime = None):
+    def __init__(
+        self,
+        websession: ClientSession,
+        home_coordinates: Tuple[float, float],
+        mmi: int = -1,
+        filter_radius: float = None,
+        filter_minimum_magnitude: float = None,
+        filter_time: datetime = None,
+    ):
         """Initialise this service."""
         if mmi in VALID_MMI:
             url = URL_TEMPLATE.format(mmi)
-            super().__init__(websession, home_coordinates, url,
-                             filter_radius=filter_radius)
+            super().__init__(
+                websession, home_coordinates, url, filter_radius=filter_radius
+            )
             self._filter_minimum_magnitude = filter_minimum_magnitude
             self._filter_time = filter_time
         else:
             _LOGGER.error("Invalid MMI provided %s", mmi)
-            raise GeoJsonException("Minimum MMI must be one of %s" %
-                                   VALID_MMI)
+            raise GeoJsonException("Minimum MMI must be one of %s" % VALID_MMI)
 
     def __repr__(self):
         """Return string representation of this feed."""
-        return '<{}(home={}, url={}, radius={}, magnitude={}, time={})>'.\
-            format(self.__class__.__name__, self._home_coordinates, self._url,
-                   self._filter_radius, self._filter_minimum_magnitude,
-                   self._filter_time)
+        return "<{}(home={}, url={}, radius={}, magnitude={}, time={})>".format(
+            self.__class__.__name__,
+            self._home_coordinates,
+            self._url,
+            self._filter_radius,
+            self._filter_minimum_magnitude,
+            self._filter_time,
+        )
 
     def _new_entry(self, home_coordinates, feature, global_data):
         """Generate a new entry."""
@@ -55,19 +61,24 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
         if self._filter_minimum_magnitude:
             # Return only entries that have an actual magnitude value, and
             # the value is equal or above the defined threshold.
-            filtered_entries = list(filter(
-                lambda entry:
-                entry.magnitude and
-                entry.magnitude >= self._filter_minimum_magnitude,
-                filtered_entries))
+            filtered_entries = list(
+                filter(
+                    lambda entry: entry.magnitude
+                    and entry.magnitude >= self._filter_minimum_magnitude,
+                    filtered_entries,
+                )
+            )
         if self._filter_time:
             # Return only entries that have a time value, and that value is
             # between now and now-time interval.
             now = self._now()
-            filtered_entries = list(filter(
-                lambda entry:
-                entry.time and (now - self._filter_time <= entry.time <= now),
-                filtered_entries))
+            filtered_entries = list(
+                filter(
+                    lambda entry: entry.time
+                    and (now - self._filter_time <= entry.time <= now),
+                    filtered_entries,
+                )
+            )
         return filtered_entries
 
     def _now(self) -> datetime:
@@ -75,13 +86,13 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
         return datetime.now(pytz.utc)
 
     def _extract_last_timestamp(
-            self,
-            feed_entries: List[GeonetnzQuakesFeedEntry]) -> Optional[datetime]:
+        self, feed_entries: List[GeonetnzQuakesFeedEntry]
+    ) -> Optional[datetime]:
         """Determine latest (newest) entry from the filtered feed."""
         if feed_entries:
-            dates = sorted(filter(
-                None, [entry.time for entry in feed_entries]),
-                reverse=True)
+            dates = sorted(
+                filter(None, [entry.time for entry in feed_entries]), reverse=True
+            )
             return dates[0]
         return None
 

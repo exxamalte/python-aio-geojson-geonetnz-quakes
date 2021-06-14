@@ -19,20 +19,21 @@ async def test_update_ok(aresponses, event_loop):
     """Test updating feed is ok."""
     home_coordinates = (-41.2, 174.7)
     aresponses.add(
-        'api.geonet.org.nz',
-        '/quake?MMI=5',
-        'get',
-        aresponses.Response(text=load_fixture('quakes-1.json'),
-                            status=200),
+        "api.geonet.org.nz",
+        "/quake?MMI=5",
+        "get",
+        aresponses.Response(text=load_fixture("quakes-1.json"), status=200),
         match_querystring=True,
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as websession:
 
         feed = GeonetnzQuakesFeed(websession, home_coordinates, mmi=5)
-        assert repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), " \
-                             "url=https://api.geonet.org.nz/quake?MMI=5, " \
-                             "radius=None, magnitude=None, time=None)>"
+        assert (
+            repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), "
+            "url=https://api.geonet.org.nz/quake?MMI=5, "
+            "radius=None, magnitude=None, time=None)>"
+        )
         status, entries = await feed.update()
         assert status == UPDATE_OK
         assert entries is not None
@@ -52,8 +53,9 @@ async def test_update_ok(aresponses, event_loop):
         assert feed_entry.mmi == 5
         assert feed_entry.locality == "Locality 1"
         assert feed_entry.quality == "best"
-        assert feed_entry.time == datetime.datetime(2019, 7, 24, 18, 0, 0,
-                                                    tzinfo=pytz.utc)
+        assert feed_entry.time == datetime.datetime(
+            2019, 7, 24, 18, 0, 0, tzinfo=pytz.utc
+        )
 
         feed_entry = entries[1]
         assert feed_entry is not None
@@ -72,20 +74,22 @@ async def test_update_ok_with_minimum_magnitude_filter(aresponses, event_loop):
     home_coordinates = (-41.2, 174.7)
     aresponses.add(
         "api.geonet.org.nz",
-        '/quake?MMI=5',
+        "/quake?MMI=5",
         "get",
-        aresponses.Response(text=load_fixture('quakes-1.json'),
-                            status=200),
+        aresponses.Response(text=load_fixture("quakes-1.json"), status=200),
         match_querystring=True,
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as websession:
 
-        feed = GeonetnzQuakesFeed(websession, home_coordinates, mmi=5,
-                                  filter_minimum_magnitude=5.5)
-        assert repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), " \
-                             "url=https://api.geonet.org.nz/quake?MMI=5, " \
-                             "radius=None, magnitude=5.5, time=None)>"
+        feed = GeonetnzQuakesFeed(
+            websession, home_coordinates, mmi=5, filter_minimum_magnitude=5.5
+        )
+        assert (
+            repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), "
+            "url=https://api.geonet.org.nz/quake?MMI=5, "
+            "radius=None, magnitude=5.5, time=None)>"
+        )
         status, entries = await feed.update()
         assert status == UPDATE_OK
         assert entries is not None
@@ -111,31 +115,34 @@ async def test_update_ok_with_time_filter(aresponses, event_loop):
     home_coordinates = (-41.2, 174.7)
     aresponses.add(
         "api.geonet.org.nz",
-        '/quake?MMI=5',
+        "/quake?MMI=5",
         "get",
-        aresponses.Response(text=load_fixture('quakes-1.json'),
-                            status=200),
+        aresponses.Response(text=load_fixture("quakes-1.json"), status=200),
         match_querystring=True,
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as websession:
         fixed_now = datetime.datetime(2019, 7, 24, 19, 30, 0, tzinfo=pytz.utc)
 
-        feed = GeonetnzQuakesFeed(websession, home_coordinates, mmi=5,
-                                  filter_time=datetime.timedelta(hours=1))
+        feed = GeonetnzQuakesFeed(
+            websession, home_coordinates, mmi=5, filter_time=datetime.timedelta(hours=1)
+        )
         # Test if "now" is computed correctly, before patchinng it.
         before_now_call = datetime.datetime.now(pytz.utc)
         computed_now = feed._now()
         after_now_call = datetime.datetime.now(pytz.utc)
         assert before_now_call <= computed_now <= after_now_call
 
-        with mock.patch('aio_geojson_geonetnz_quakes.feed.'
-                        'GeonetnzQuakesFeed._now') as mock_now:
+        with mock.patch(
+            "aio_geojson_geonetnz_quakes.feed." "GeonetnzQuakesFeed._now"
+        ) as mock_now:
             mock_now.return_value = fixed_now
-            assert repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), " \
-                                 "url=https://api.geonet.org.nz/quake?" \
-                                 "MMI=5, radius=None, magnitude=None, " \
-                                 "time=1:00:00)>"
+            assert (
+                repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), "
+                "url=https://api.geonet.org.nz/quake?"
+                "MMI=5, radius=None, magnitude=None, "
+                "time=1:00:00)>"
+            )
             status, entries = await feed.update()
             assert status == UPDATE_OK
             assert entries is not None
@@ -144,8 +151,7 @@ async def test_update_ok_with_time_filter(aresponses, event_loop):
             feed_entry = entries[0]
             assert feed_entry is not None
             assert feed_entry.external_id == "2019p222222"
-            assert repr(feed_entry) == "<GeonetnzQuakesFeedEntry(" \
-                                       "id=2019p222222)>"
+            assert repr(feed_entry) == "<GeonetnzQuakesFeedEntry(" "id=2019p222222)>"
 
 
 @pytest.mark.asyncio
@@ -153,20 +159,21 @@ async def test_empty_feed(aresponses, event_loop):
     """Test updating feed is ok when feed does not contain any entries."""
     home_coordinates = (-41.2, 174.7)
     aresponses.add(
-        'api.geonet.org.nz',
-        '/quake?MMI=5',
-        'get',
-        aresponses.Response(text=load_fixture('quakes-2.json'),
-                            status=200),
+        "api.geonet.org.nz",
+        "/quake?MMI=5",
+        "get",
+        aresponses.Response(text=load_fixture("quakes-2.json"), status=200),
         match_querystring=True,
     )
 
     async with aiohttp.ClientSession(loop=event_loop) as websession:
 
         feed = GeonetnzQuakesFeed(websession, home_coordinates, mmi=5)
-        assert repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), " \
-                             "url=https://api.geonet.org.nz/quake?MMI=5, " \
-                             "radius=None, magnitude=None, time=None)>"
+        assert (
+            repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), "
+            "url=https://api.geonet.org.nz/quake?MMI=5, "
+            "radius=None, magnitude=None, time=None)>"
+        )
         status, entries = await feed.update()
         assert status == UPDATE_OK
         assert entries is not None
