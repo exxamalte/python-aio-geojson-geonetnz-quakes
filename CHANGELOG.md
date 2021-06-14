@@ -1,5 +1,13 @@
 # Changes
 
+## 0.13 (15/06/2021)
+* Set aiohttp to a release 3.7.4 or later (thanks @fabaff).
+* Add license tag (thanks @fabaff).
+* Added Python 3.9 support.
+* Bump aio_geojson_client to v0.14.
+* Migrated to github actions.
+* General code improvements.
+
 ## 0.12 (17/02/2020)
 * Bumped version of upstream GeoJSON library.
 * Internal code improvements.
