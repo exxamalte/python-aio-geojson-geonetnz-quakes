@@ -1,6 +1,6 @@
 import os
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 NAME = "aio_geojson_geonetnz_quakes"
 AUTHOR = "Malte Franken"
