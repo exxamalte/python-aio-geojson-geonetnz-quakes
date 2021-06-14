@@ -7,8 +7,16 @@ import pytz
 from aio_geojson_client.feed_entry import FeedEntry
 from geojson import Feature
 
-from .consts import (ATTR_DEPTH, ATTR_LOCALITY, ATTR_MAGNITUDE, ATTR_MMI,
-                     ATTR_PUBLICID, ATTR_QUALITY, ATTR_TIME, ATTRIBUTION)
+from .consts import (
+    ATTR_DEPTH,
+    ATTR_LOCALITY,
+    ATTR_MAGNITUDE,
+    ATTR_MMI,
+    ATTR_PUBLICID,
+    ATTR_QUALITY,
+    ATTR_TIME,
+    ATTRIBUTION,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -67,7 +75,8 @@ class GeonetnzQuakesFeedEntry(FeedEntry):
         if time_str:
             # 'Z' means UTC timezone.
             time = pytz.utc.localize(
-                datetime.strptime(time_str, "%Y-%m-%dT%H:%M:%S.%fZ"))
+                datetime.strptime(time_str, "%Y-%m-%dT%H:%M:%S.%fZ")
+            )
             _LOGGER.debug("Time parsed: %s", time)
             return time
         return None
