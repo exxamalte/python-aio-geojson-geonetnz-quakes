@@ -1,5 +1,12 @@
 # Changes
 
+## 0.14 (17/02/2022)
+* No functional changes.
+* Added Python 3.10 support.
+* Removed Python 3.6 support.
+* Bumped version of upstream GeoJSON library.
+* Bumped library versions: black, flake8, isort.
+
 ## 0.13 (15/06/2021)
 * Set aiohttp to a release 3.7.4 or later (thanks @fabaff).
 * Add license tag (thanks @fabaff).
