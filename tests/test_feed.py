@@ -1,5 +1,7 @@
 """Test for the GeoNet NZ Quakes GeoJSON feed."""
+import asyncio
 import datetime
+from http import HTTPStatus
 from unittest import mock
 from unittest.mock import ANY
 
@@ -15,19 +17,16 @@ from tests.utils import load_fixture
 
 
 @pytest.mark.asyncio
-async def test_update_ok(aresponses, event_loop):
+async def test_update_ok(mock_aioresponse):
     """Test updating feed is ok."""
     home_coordinates = (-41.2, 174.7)
-    aresponses.add(
-        "api.geonet.org.nz",
-        "/quake?MMI=5",
-        "get",
-        aresponses.Response(text=load_fixture("quakes-1.json"), status=200),
-        match_querystring=True,
+    mock_aioresponse.get(
+        "https://api.geonet.org.nz/quake?MMI=5",
+        status=HTTPStatus.OK,
+        body=load_fixture("quakes-1.json"),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = GeonetnzQuakesFeed(websession, home_coordinates, mmi=5)
         assert (
             repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), "
@@ -69,19 +68,16 @@ async def test_update_ok(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-async def test_update_ok_with_minimum_magnitude_filter(aresponses, event_loop):
+async def test_update_ok_with_minimum_magnitude_filter(mock_aioresponse):
     """Test updating feed is ok with minimum magnitude filter."""
     home_coordinates = (-41.2, 174.7)
-    aresponses.add(
-        "api.geonet.org.nz",
-        "/quake?MMI=5",
-        "get",
-        aresponses.Response(text=load_fixture("quakes-1.json"), status=200),
-        match_querystring=True,
+    mock_aioresponse.get(
+        "https://api.geonet.org.nz/quake?MMI=5",
+        status=HTTPStatus.OK,
+        body=load_fixture("quakes-1.json"),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = GeonetnzQuakesFeed(
             websession, home_coordinates, mmi=5, filter_minimum_magnitude=5.5
         )
@@ -110,18 +106,16 @@ async def test_update_ok_with_minimum_magnitude_filter(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-async def test_update_ok_with_time_filter(aresponses, event_loop):
+async def test_update_ok_with_time_filter(mock_aioresponse):
     """Test updating feed is ok with time filter."""
     home_coordinates = (-41.2, 174.7)
-    aresponses.add(
-        "api.geonet.org.nz",
-        "/quake?MMI=5",
-        "get",
-        aresponses.Response(text=load_fixture("quakes-1.json"), status=200),
-        match_querystring=True,
+    mock_aioresponse.get(
+        "https://api.geonet.org.nz/quake?MMI=5",
+        status=HTTPStatus.OK,
+        body=load_fixture("quakes-1.json"),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         fixed_now = datetime.datetime(2019, 7, 24, 19, 30, 0, tzinfo=pytz.utc)
 
         feed = GeonetnzQuakesFeed(
@@ -155,19 +149,16 @@ async def test_update_ok_with_time_filter(aresponses, event_loop):
 
 
 @pytest.mark.asyncio
-async def test_empty_feed(aresponses, event_loop):
+async def test_empty_feed(mock_aioresponse):
     """Test updating feed is ok when feed does not contain any entries."""
     home_coordinates = (-41.2, 174.7)
-    aresponses.add(
-        "api.geonet.org.nz",
-        "/quake?MMI=5",
-        "get",
-        aresponses.Response(text=load_fixture("quakes-2.json"), status=200),
-        match_querystring=True,
+    mock_aioresponse.get(
+        "https://api.geonet.org.nz/quake?MMI=5",
+        status=HTTPStatus.OK,
+        body=load_fixture("quakes-2.json"),
     )
 
-    async with aiohttp.ClientSession(loop=event_loop) as websession:
-
+    async with aiohttp.ClientSession(loop=asyncio.get_running_loop()) as websession:
         feed = GeonetnzQuakesFeed(websession, home_coordinates, mmi=5)
         assert (
             repr(feed) == "<GeonetnzQuakesFeed(home=(-41.2, 174.7), "
