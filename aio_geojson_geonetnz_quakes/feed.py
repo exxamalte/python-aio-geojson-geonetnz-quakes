@@ -1,7 +1,8 @@
 """GeoNet NZ Quakes feed."""
+from __future__ import annotations
+
 import logging
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
 
 import pytz
 from aio_geojson_client.exceptions import GeoJsonException
@@ -22,7 +23,7 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
     def __init__(
         self,
         websession: ClientSession,
-        home_coordinates: Tuple[float, float],
+        home_coordinates: tuple[float, float],
         mmi: int = -1,
         filter_radius: float = None,
         filter_minimum_magnitude: float = None,
@@ -86,8 +87,8 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
         return datetime.now(pytz.utc)
 
     def _extract_last_timestamp(
-        self, feed_entries: List[GeonetnzQuakesFeedEntry]
-    ) -> Optional[datetime]:
+        self, feed_entries: list[GeonetnzQuakesFeedEntry]
+    ) -> datetime | None:
         """Determine latest (newest) entry from the filtered feed."""
         if feed_entries:
             dates = sorted(
@@ -96,6 +97,6 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
             return dates[0]
         return None
 
-    def _extract_from_feed(self, feed: FeatureCollection) -> Optional[Dict]:
+    def _extract_from_feed(self, feed: FeatureCollection) -> dict | None:
         """Extract global metadata from feed."""
         return None

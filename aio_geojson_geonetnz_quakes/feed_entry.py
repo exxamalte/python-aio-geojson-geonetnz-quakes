@@ -1,7 +1,8 @@
 """GeoNet NZ Quakes feed entry."""
+from __future__ import annotations
+
 import logging
 from datetime import datetime
-from typing import Optional, Tuple
 
 import pytz
 from aio_geojson_client.feed_entry import FeedEntry
@@ -24,7 +25,7 @@ _LOGGER = logging.getLogger(__name__)
 class GeonetnzQuakesFeedEntry(FeedEntry):
     """GeoNet NZ Quakes feed entry."""
 
-    def __init__(self, home_coordinates: Tuple[float, float], feature: Feature):
+    def __init__(self, home_coordinates: tuple[float, float], feature: Feature):
         """Initialise this service."""
         super().__init__(home_coordinates, feature)
 
@@ -34,42 +35,42 @@ class GeonetnzQuakesFeedEntry(FeedEntry):
         return ATTRIBUTION
 
     @property
-    def external_id(self) -> Optional[str]:
+    def external_id(self) -> str | None:
         """Return the external id of this entry."""
         return self._search_in_properties(ATTR_PUBLICID)
 
     @property
-    def title(self) -> Optional[str]:
+    def title(self) -> str | None:
         """Return the title of this entry."""
         return self.locality
 
     @property
-    def depth(self) -> Optional[float]:
+    def depth(self) -> float | None:
         """Return the depth of this entry."""
         return self._search_in_properties(ATTR_DEPTH)
 
     @property
-    def magnitude(self) -> Optional[float]:
+    def magnitude(self) -> float | None:
         """Return the magnitude of this entry."""
         return self._search_in_properties(ATTR_MAGNITUDE)
 
     @property
-    def mmi(self) -> Optional[int]:
+    def mmi(self) -> int | None:
         """Return the MMI of this entry."""
         return self._search_in_properties(ATTR_MMI)
 
     @property
-    def locality(self) -> Optional[str]:
+    def locality(self) -> str | None:
         """Return the locality of this entry."""
         return self._search_in_properties(ATTR_LOCALITY)
 
     @property
-    def quality(self) -> Optional[str]:
+    def quality(self) -> str | None:
         """Return the quality of this entry."""
         return self._search_in_properties(ATTR_QUALITY)
 
     @property
-    def time(self) -> Optional[datetime]:
+    def time(self) -> datetime | None:
         """Return the time of this entry."""
         time_str = self._search_in_properties(ATTR_TIME)
         if time_str:
