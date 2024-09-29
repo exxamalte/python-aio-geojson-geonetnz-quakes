@@ -1,12 +1,13 @@
 """GeoNet NZ Quakes feed entry."""
+
 from __future__ import annotations
 
-import logging
 from datetime import datetime
+import logging
 
-import pytz
 from aio_geojson_client.feed_entry import FeedEntry
 from geojson import Feature
+import pytz
 
 from .consts import (
     ATTR_DEPTH,

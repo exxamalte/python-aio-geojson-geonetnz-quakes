@@ -1,14 +1,15 @@
 """GeoNet NZ Quakes feed."""
+
 from __future__ import annotations
 
-import logging
 from datetime import datetime
+import logging
 
-import pytz
 from aio_geojson_client.exceptions import GeoJsonException
 from aio_geojson_client.feed import GeoJsonFeed
 from aiohttp import ClientSession
 from geojson import FeatureCollection
+import pytz
 
 from aio_geojson_geonetnz_quakes.consts import URL_TEMPLATE, VALID_MMI
 
@@ -25,9 +26,9 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
         websession: ClientSession,
         home_coordinates: tuple[float, float],
         mmi: int = -1,
-        filter_radius: float = None,
-        filter_minimum_magnitude: float = None,
-        filter_time: datetime = None,
+        filter_radius: float | None = None,
+        filter_minimum_magnitude: float | None = None,
+        filter_time: datetime | None = None,
     ):
         """Initialise this service."""
         if mmi in VALID_MMI:
@@ -39,18 +40,11 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
             self._filter_time = filter_time
         else:
             _LOGGER.error("Invalid MMI provided %s", mmi)
-            raise GeoJsonException("Minimum MMI must be one of %s" % VALID_MMI)
+            raise GeoJsonException(f"Minimum MMI must be one of {VALID_MMI}")
 
     def __repr__(self):
         """Return string representation of this feed."""
-        return "<{}(home={}, url={}, radius={}, magnitude={}, time={})>".format(
-            self.__class__.__name__,
-            self._home_coordinates,
-            self._url,
-            self._filter_radius,
-            self._filter_minimum_magnitude,
-            self._filter_time,
-        )
+        return f"<{self.__class__.__name__}(home={self._home_coordinates}, url={self._url}, radius={self._filter_radius}, magnitude={self._filter_minimum_magnitude}, time={self._filter_time})>"
 
     def _new_entry(self, home_coordinates, feature, global_data):
         """Generate a new entry."""
