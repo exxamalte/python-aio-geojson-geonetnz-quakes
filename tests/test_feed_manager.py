@@ -1,4 +1,5 @@
 """Test for the GeoNet NZ Quakes GeoJSON feed manager."""
+
 import asyncio
 import datetime
 from http import HTTPStatus
