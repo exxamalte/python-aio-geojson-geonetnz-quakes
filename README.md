@@ -1,6 +1,6 @@
 # python-aio-geojson-geonetnz-quakes
 
-[![Build Status](https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes/workflows/CI/badge.svg?branch=master)](https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes/actions?workflow=CI)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/exxamalte/python-aio-geojson-geonetnz-quakes/ci.yaml)](https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes/actions/workflows/ci.yaml)
 [![codecov](https://codecov.io/gh/exxamalte/python-aio-geojson-geonetnz-quakes/branch/master/graph/badge.svg?token=USA5MZU6D5)](https://codecov.io/gh/exxamalte/python-aio-geojson-geonetnz-quakes)
 [![PyPi](https://img.shields.io/pypi/v/aio-geojson-geonetnz-quakes.svg)](https://pypi.python.org/pypi/aio-geojson-geonetnz-quakes)
 [![Version](https://img.shields.io/pypi/pyversions/aio-geojson-geonetnz-quakes.svg)](https://pypi.python.org/pypi/aio-geojson-geonetnz-quakes)
