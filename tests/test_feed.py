@@ -1,15 +1,16 @@
 """Test for the GeoNet NZ Quakes GeoJSON feed."""
+
 import asyncio
 import datetime
 from http import HTTPStatus
 from unittest import mock
 from unittest.mock import ANY
 
+from aio_geojson_client.consts import UPDATE_OK
+from aio_geojson_client.exceptions import GeoJsonException
 import aiohttp
 import pytest
 import pytz
-from aio_geojson_client.consts import UPDATE_OK
-from aio_geojson_client.exceptions import GeoJsonException
 
 from aio_geojson_geonetnz_quakes.consts import ATTRIBUTION
 from aio_geojson_geonetnz_quakes.feed import GeonetnzQuakesFeed
@@ -123,7 +124,7 @@ async def test_update_ok_with_time_filter(mock_aioresponse):
         )
         # Test if "now" is computed correctly, before patchinng it.
         before_now_call = datetime.datetime.now(pytz.utc)
-        computed_now = feed._now()
+        computed_now = feed._now()  # noqa: SLF001
         after_now_call = datetime.datetime.now(pytz.utc)
         assert before_now_call <= computed_now <= after_now_call
 

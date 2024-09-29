@@ -1,4 +1,5 @@
 """Test for the GeoNet NZ Quakes GeoJSON general setup."""
+
 from aio_geojson_geonetnz_quakes import __version__
 
 

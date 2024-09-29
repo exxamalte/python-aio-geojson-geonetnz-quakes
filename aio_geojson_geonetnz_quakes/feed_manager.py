@@ -1,4 +1,5 @@
 """Feed Manager for GeoNet NZ Quakes feed."""
+
 from __future__ import annotations
 
 from collections.abc import Awaitable, Callable
@@ -22,10 +23,10 @@ class GeonetnzQuakesFeedManager(FeedManagerBase):
         remove_callback: Callable[[str], Awaitable[None]],
         home_coordinates: tuple[float, float],
         mmi: int = -1,
-        filter_radius: float = None,
-        filter_minimum_magnitude: float = None,
-        filter_time: datetime = None,
-        status_callback: Callable[[StatusUpdate], Awaitable[None]] = None,
+        filter_radius: float | None = None,
+        filter_minimum_magnitude: float | None = None,
+        filter_time: datetime | None = None,
+        status_callback: Callable[[StatusUpdate], Awaitable[None]] | None = None,
     ):
         """Initialize the GeoNet NZ Quakes Feed Manager."""
         feed = GeonetnzQuakesFeed(
