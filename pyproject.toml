@@ -45,7 +45,7 @@ tests = [
 [project.urls]
 Repository = "https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes"
 Issues = "https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes/issues"
-Changelog = "https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes/blob/master/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 include = ["aio_geojson_geonetnz_quakes*"]
