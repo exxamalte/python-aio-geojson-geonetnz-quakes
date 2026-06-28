@@ -13,10 +13,10 @@ from tests.utils import load_fixture
 
 
 @pytest.mark.asyncio
-async def test_feed_manager(mock_aioresponse):
+async def test_feed_manager(mock_aiointercept):
     """Test the feed manager."""
     home_coordinates = (-41.2, 174.7)
-    mock_aioresponse.get(
+    mock_aiointercept.get(
         "https://api.geonet.org.nz/quake?MMI=5",
         status=HTTPStatus.OK,
         body=load_fixture("quakes-1.json"),
