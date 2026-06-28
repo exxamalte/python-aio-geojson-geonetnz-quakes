@@ -1,9 +1,7 @@
 """Feed Manager for GeoNet NZ Quakes feed."""
 
-from __future__ import annotations
-
 from collections.abc import Awaitable, Callable
-from datetime import datetime
+from datetime import timedelta
 
 from aio_geojson_client.feed_manager import FeedManagerBase
 from aio_geojson_client.status_update import StatusUpdate
@@ -25,7 +23,7 @@ class GeonetnzQuakesFeedManager(FeedManagerBase):
         mmi: int = -1,
         filter_radius: float | None = None,
         filter_minimum_magnitude: float | None = None,
-        filter_time: datetime | None = None,
+        filter_time: timedelta | None = None,
         status_callback: Callable[[StatusUpdate], Awaitable[None]] | None = None,
     ):
         """Initialize the GeoNet NZ Quakes Feed Manager."""

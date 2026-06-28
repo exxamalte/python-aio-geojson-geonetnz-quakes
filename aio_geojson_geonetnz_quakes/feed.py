@@ -1,8 +1,6 @@
 """GeoNet NZ Quakes feed."""
 
-from __future__ import annotations
-
-from datetime import datetime
+from datetime import datetime, timedelta
 import logging
 
 from aio_geojson_client.exceptions import GeoJsonException
@@ -28,16 +26,16 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
         mmi: int = -1,
         filter_radius: float | None = None,
         filter_minimum_magnitude: float | None = None,
-        filter_time: datetime | None = None,
+        filter_time: timedelta | None = None,
     ):
         """Initialise this service."""
         if mmi in VALID_MMI:
-            url = URL_TEMPLATE.format(mmi)
+            url: str = URL_TEMPLATE.format(mmi)
             super().__init__(
                 websession, home_coordinates, url, filter_radius=filter_radius
             )
-            self._filter_minimum_magnitude = filter_minimum_magnitude
-            self._filter_time = filter_time
+            self._filter_minimum_magnitude: float | None = filter_minimum_magnitude
+            self._filter_time: timedelta | None = filter_time
         else:
             _LOGGER.error("Invalid MMI provided %s", mmi)
             raise GeoJsonException(f"Minimum MMI must be one of {VALID_MMI}")
@@ -58,8 +56,10 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
             # the value is equal or above the defined threshold.
             filtered_entries = list(
                 filter(
-                    lambda entry: entry.magnitude
-                    and entry.magnitude >= self._filter_minimum_magnitude,
+                    lambda entry: (
+                        entry.magnitude
+                        and entry.magnitude >= self._filter_minimum_magnitude
+                    ),
                     filtered_entries,
                 )
             )
@@ -69,8 +69,9 @@ class GeonetnzQuakesFeed(GeoJsonFeed):
             now = self._now()
             filtered_entries = list(
                 filter(
-                    lambda entry: entry.time
-                    and (now - self._filter_time <= entry.time <= now),
+                    lambda entry: (
+                        entry.time and (now - self._filter_time <= entry.time <= now)
+                    ),
                     filtered_entries,
                 )
             )
