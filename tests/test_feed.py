@@ -18,10 +18,10 @@ from tests.utils import load_fixture
 
 
 @pytest.mark.asyncio
-async def test_update_ok(mock_aioresponse):
+async def test_update_ok(mock_aiointercept):
     """Test updating feed is ok."""
     home_coordinates = (-41.2, 174.7)
-    mock_aioresponse.get(
+    mock_aiointercept.get(
         "https://api.geonet.org.nz/quake?MMI=5",
         status=HTTPStatus.OK,
         body=load_fixture("quakes-1.json"),
@@ -69,10 +69,10 @@ async def test_update_ok(mock_aioresponse):
 
 
 @pytest.mark.asyncio
-async def test_update_ok_with_minimum_magnitude_filter(mock_aioresponse):
+async def test_update_ok_with_minimum_magnitude_filter(mock_aiointercept):
     """Test updating feed is ok with minimum magnitude filter."""
     home_coordinates = (-41.2, 174.7)
-    mock_aioresponse.get(
+    mock_aiointercept.get(
         "https://api.geonet.org.nz/quake?MMI=5",
         status=HTTPStatus.OK,
         body=load_fixture("quakes-1.json"),
@@ -107,10 +107,10 @@ async def test_update_ok_with_minimum_magnitude_filter(mock_aioresponse):
 
 
 @pytest.mark.asyncio
-async def test_update_ok_with_time_filter(mock_aioresponse):
+async def test_update_ok_with_time_filter(mock_aiointercept):
     """Test updating feed is ok with time filter."""
     home_coordinates = (-41.2, 174.7)
-    mock_aioresponse.get(
+    mock_aiointercept.get(
         "https://api.geonet.org.nz/quake?MMI=5",
         status=HTTPStatus.OK,
         body=load_fixture("quakes-1.json"),
@@ -129,7 +129,7 @@ async def test_update_ok_with_time_filter(mock_aioresponse):
         assert before_now_call <= computed_now <= after_now_call
 
         with mock.patch(
-            "aio_geojson_geonetnz_quakes.feed." "GeonetnzQuakesFeed._now"
+            "aio_geojson_geonetnz_quakes.feed.GeonetnzQuakesFeed._now"
         ) as mock_now:
             mock_now.return_value = fixed_now
             assert (
@@ -146,14 +146,14 @@ async def test_update_ok_with_time_filter(mock_aioresponse):
             feed_entry = entries[0]
             assert feed_entry is not None
             assert feed_entry.external_id == "2019p222222"
-            assert repr(feed_entry) == "<GeonetnzQuakesFeedEntry(" "id=2019p222222)>"
+            assert repr(feed_entry) == "<GeonetnzQuakesFeedEntry(id=2019p222222)>"
 
 
 @pytest.mark.asyncio
-async def test_empty_feed(mock_aioresponse):
+async def test_empty_feed(mock_aiointercept):
     """Test updating feed is ok when feed does not contain any entries."""
     home_coordinates = (-41.2, 174.7)
-    mock_aioresponse.get(
+    mock_aiointercept.get(
         "https://api.geonet.org.nz/quake?MMI=5",
         status=HTTPStatus.OK,
         body=load_fixture("quakes-2.json"),
